@@ -1,0 +1,21 @@
+.teacher,
+.student,
+.other {
+  padding: 0.25rem 0.5rem;
+
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  border-radius: 8px;
+}
+
+.teacher {
+  background-color: aqua;
+}
+
+.student {
+  background-color: lightgreen;
+}
+
+.other {
+  background-color: lightgray;
+}

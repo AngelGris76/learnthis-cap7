@@ -16,6 +16,7 @@
   font-weight: bold;
 }
 
+.action,
 .status,
 .role {
   width: 20%;

@@ -1,0 +1,30 @@
+.userRow {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  margin: 0.25rem 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  border-radius: 10px;
+  border: 1px solid black;
+}
+
+.name {
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+}
+
+.active {
+  color: green;
+}
+
+.role {
+  padding: 0.25rem 0.5rem;
+
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  background-color: aqua;
+  border-radius: 8px;
+}

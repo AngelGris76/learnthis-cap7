@@ -1,5 +1,4 @@
 import UsesrsList from './components/UsersList';
-import Title from './components/Title';
 
 const USERS = [
   { name: 'Pablo Castellanos', active: true, role: 'teacher' },
@@ -8,11 +7,7 @@ const USERS = [
 ];
 
 const App = () => {
-  return (
-    <UsesrsList users={USERS}>
-      <Title>Listado de usuarios</Title>
-    </UsesrsList>
-  );
+  return <UsesrsList users={USERS} />;
 };
 
 export default App;

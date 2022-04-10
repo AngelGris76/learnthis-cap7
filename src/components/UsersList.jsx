@@ -20,15 +20,16 @@ const UsesrsList = ({ users, children }) => {
   return (
     <div className={style.usersList}>
       {children}
-      <form
-        onSubmit={(ev) => {
-          ev.preventDefault();
-          setSearch(ev.target.search.value);
+
+      <input
+        type='text'
+        name='search'
+        value={search}
+        onChange={(ev) => {
+          setSearch(ev.target.value);
         }}
-      >
-        <input type='text' name='search' defaultValue='' />
-        <button type='submit'>Buscar</button>
-      </form>
+      />
+
       {usersRendered}
     </div>
   );

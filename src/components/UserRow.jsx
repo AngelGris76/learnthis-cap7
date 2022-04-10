@@ -19,12 +19,7 @@ const UserRow = ({ name, active, role }) => {
         <UserRole role={role} />
       </div>
       <div className={style.action}>
-        <Button
-          active={activeState}
-          onClick={() => {
-            setActiveState(!activeState);
-          }}
-        />
+        <Button active={activeState} setActive={setActiveState} />
       </div>
     </div>
   );

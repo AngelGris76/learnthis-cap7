@@ -1,43 +1,46 @@
 import { useState } from 'react';
-import UserRow from './UserRow';
+import UsersListFilters from './UsersListFilters';
 import style from './UsersList.module.css';
+import UsersListRows from './UsersListRows';
 
 const UsesrsList = ({ users }) => {
   const [search, setSearch] = useState('');
+  const [activeFilter, setActiveFilter] = useState(false);
+  const [order, setOrder] = useState(0);
 
-  const usersFiltered = filterUsersByName(users, search);
-  const usersRendered = renderUsers(usersFiltered);
+  let usersFiltered = filterByActive(users, activeFilter);
+  usersFiltered = filterUsersByName(usersFiltered, search);
+  usersFiltered = orderUsers(usersFiltered, order);
 
   return (
     <div className={style.usersList}>
       <h1>Listado de usuarios</h1>
-      <input
-        type='text'
-        name='search'
-        value={search}
-        onChange={(ev) => {
-          setSearch(ev.target.value);
+      <UsersListFilters
+        {...{
+          search,
+          setSearch,
+          activeFilter,
+          setActiveFilter,
+          order,
+          setOrder,
         }}
       />
 
-      {usersRendered}
+      <UsersListRows users={usersFiltered} />
     </div>
   );
 };
 
+const filterByActive = (users, filter) => {
+  if (!filter) {
+    return [...users];
+  }
+  return users.filter((user) => user.active);
+};
+
 const filterUsersByName = (users, search) => {
-  /*
-  const filteredUsers = search
-    ? users.filter((user) =>
-        user.name.toLowerCase().startsWith(insensitiveSearch)
-      )
-    : users;
-
-  return filteredUsers;
-  */
-
   if (!search) {
-    return users;
+    return [...users];
   }
 
   const insensitiveSearch = search.toLowerCase();
@@ -47,23 +50,23 @@ const filterUsersByName = (users, search) => {
   );
 };
 
-const renderUsers = (users) => {
-  /*
-  const usersRendered =
-    users.length > 0 ? (
-      users.map((user) => <UserRow key={user.name} {...user} />)
-    ) : (
-      <p>No hay usuarios</p>
-    );
+const orderUsers = (users, order) => {
+  const copyUsers = [...users];
 
-  return usersRendered;
-  */
-
-  if (!users.length) {
-    return <p>No hay usuarios</p>;
+  switch (order) {
+    case 1:
+      return copyUsers.sort((a, b) => {
+        if (a.name > b.name) {
+          return 1;
+        }
+        if (b.name > a.name) {
+          return -1;
+        }
+        return 0;
+      });
+    default:
+      return copyUsers;
   }
-
-  return users.map((user) => <UserRow key={user.name} {...user} />);
 };
 
 export default UsesrsList;

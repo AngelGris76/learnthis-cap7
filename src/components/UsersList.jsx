@@ -92,7 +92,6 @@ const useUsers = (initialUsers) => {
   const [users, setUsers] = useState(initialUsers);
 
   const setActive = (id) => {
-    console.log('hizo click en el id ', id);
     const newUsers = [...users];
 
     const index = newUsers.findIndex((user) => user.id === id);

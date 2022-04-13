@@ -3,9 +3,11 @@ import UsersListFilters from './UsersListFilters';
 import style from './UsersList.module.css';
 import UsersListRows from './UsersListRows';
 
-const UsesrsList = ({ users }) => {
+const UsesrsList = ({ initialUsers }) => {
   const { search, activeFilter, order, setSearch, setActiveFilter, setOrder } =
     useFilter();
+
+  const { users, setActive } = useUsers(initialUsers);
 
   let usersFiltered = filterByActive(users, activeFilter);
   usersFiltered = filterUsersByName(usersFiltered, search);
@@ -23,7 +25,7 @@ const UsesrsList = ({ users }) => {
         setOrder={setOrder}
       />
 
-      <UsersListRows users={usersFiltered} />
+      <UsersListRows users={usersFiltered} setActiveState={setActive} />
     </div>
   );
 };
@@ -84,6 +86,21 @@ const useFilter = () => {
   };
 
   return { ...filters, setSearch, setActiveFilter, setOrder };
+};
+
+const useUsers = (initialUsers) => {
+  const [users, setUsers] = useState(initialUsers);
+
+  const setActive = (id) => {
+    console.log('hizo click en el id ', id);
+    const newUsers = [...users];
+
+    const index = newUsers.findIndex((user) => user.id === id);
+    newUsers[index].active = !newUsers[index].active;
+    setUsers(newUsers);
+  };
+
+  return { users, setActive };
 };
 
 export default UsesrsList;

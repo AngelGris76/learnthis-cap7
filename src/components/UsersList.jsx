@@ -4,25 +4,31 @@ import style from './UsersList.module.css';
 import UsersListRows from './UsersListRows';
 
 const UsesrsList = ({ users }) => {
-  const [search, setSearch] = useState('');
-  const [activeFilter, setActiveFilter] = useState(false);
-  const [order, setOrder] = useState(0);
+  const [filters, setFilters] = useState({
+    search: '',
+    activeFilter: false,
+    order: 0,
+  });
 
-  let usersFiltered = filterByActive(users, activeFilter);
-  usersFiltered = filterUsersByName(usersFiltered, search);
-  usersFiltered = orderUsers(usersFiltered, order);
+  let usersFiltered = filterByActive(users, filters.activeFilter);
+  usersFiltered = filterUsersByName(usersFiltered, filters.search);
+  usersFiltered = orderUsers(usersFiltered, filters.order);
 
   return (
     <div className={style.usersList}>
       <h1>Listado de usuarios</h1>
       <UsersListFilters
-        {...{
-          search,
-          setSearch,
-          activeFilter,
-          setActiveFilter,
-          order,
-          setOrder,
+        search={filters.search}
+        setSearch={(search) => {
+          setFilters({ ...filters, search: search });
+        }}
+        activeFilter={filters.activeFilter}
+        setActiveFilter={(active) => {
+          setFilters({ ...filters, activeFilter: active });
+        }}
+        order={filters.order}
+        setOrder={(order) => {
+          setFilters({ ...filters, order: order });
         }}
       />
 
